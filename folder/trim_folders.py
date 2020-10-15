@@ -9,13 +9,15 @@ def delete_old(data_path: str, days: int):
         print('path checking is:',f_path)
         if files_list:
             Date = []
-            for file_ in files_list:
-                """comparing with the modified time of the file"""
-                # days is to take no of back days to delte the files
-                if os.path.getmtime(os.path.join(f_path,file_)) < now - (days* 86400):
-                    print("removed file is ",file_,
-                    datetime.datetime.fromtimestamp(os.path.getmtime(os.path.join(f_path,file))).strftime('%Y-%m-%d %H:%M:%S'))
-                    os.remove(os.path.join(f_path,file_))
+            # checking it has more than 10 files or not
+            if len(files_list) >10:
+                for file_ in files_list:
+                    """comparing with the modified time of the file"""
+                    # days is to take no of back days to delte the files
+                    if os.path.getmtime(os.path.join(f_path,file_)) < now - (days* 86400):
+                        print("removed file is ",file_,
+                        datetime.datetime.fromtimestamp(os.path.getmtime(os.path.join(f_path,file))).strftime('%Y-%m-%d %H:%M:%S'))
+                        os.remove(os.path.join(f_path,file_))
         elif not folders_list:
             os.rmdir(f_path)
             print("removed empty folder", f_path)
